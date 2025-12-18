@@ -1,0 +1,36 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %}Errors{% endblock %}</title>
+  {% load bootstrap5 %}
+  {% bootstrap_css %}
+
+  <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+</head>
+<body>
+  <div class="column">
+    <div class="row">
+      <h1>This web page makes it possible to artificially<br>
+        generate a 404 and 500 HTTP exception <br>
+        response with the click of a button.</h1>
+    </div>
+
+    <div class="row">
+      <div>
+        <!--Clicking a button that directs the app to a link
+            that does not exist raises a 404 with a request
+            containing a referer. This is important when
+            testing whether Django has been properly configured
+            to email errors regarding broken links.-->
+        <a class="btn btn-success" href="/i/dont/exist/in/urls.py"
+          role="button">Raise a 404 Containing a Referer</a>
+
+        <a class="btn btn-primary" href="{% url 'polls:generate_500' %}"
+          role="button">Generate 500 HTTP Response</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

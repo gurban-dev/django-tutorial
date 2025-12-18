@@ -1,5 +1,33 @@
+<!--Extending a template must be the
+    first line a in an HTML file.-->
+{% extends "base.html" %}
+
+{% load static %}
+
+<!--HTML comments will not prevent the Django template
+    engine from overriding the base template.
+    
+    "Polls" will still be the title of the tab in a
+    web browser when this template is rendered.-->
+<!-- {% block title %}Polls{% endblock %} -->
+
+<!--The following are placeholders which Django will
+    replace with the template that is being extended.
+    
+    Content put outside of these placeholders won't
+    be rendered unless they are extended templates.-->
+{% block content %}
+
+<!--If the link to the stylesheet is outside of the
+    block content, it won't be used.-->
+<link rel="stylesheet" href="{% static 'polls/style.css' %}">
+
+<!--If "latest_question_list" has at least one
+    Question object, it evaluates to True, which
+    means the program will enter the if block.-->
 {% if latest_question_list %}
   <ul>
+    <!--Output all of the Question objects.-->
     {% for question in latest_question_list %}
       <li>
         <!-- <a href="/polls/{{ question.id }}/"> -->
@@ -12,3 +40,5 @@
 {% else %}
   <p>No polls are available.</p>
 {% endif %}
+
+{% endblock %}

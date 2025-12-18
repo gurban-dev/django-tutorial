@@ -1,0 +1,27 @@
+li a {
+  color: green;
+}
+
+/* body {
+  background: white url("./images/mongolia-steppe.jpg") no-repeat;
+} */
+
+a {
+  text-decoration: none;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  /*Removes the vertical and
+    horizontal scroll bars.*/
+  align-items: center;
+  height: 100vh;
+}
+
+.row {
+  text-align: center;
+  border-radius: 10px;
+}

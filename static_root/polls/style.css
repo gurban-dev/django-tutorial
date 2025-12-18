@@ -1,0 +1,15 @@
+li a {
+  color: green;
+}
+
+/* body {
+  background: white url("./images/mongolia-steppe.jpg") no-repeat;
+} */
+
+a {
+  text-decoration: none;
+}
+
+.errors {
+  text-align: center;
+}

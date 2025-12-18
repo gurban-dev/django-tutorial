@@ -9,6 +9,9 @@ from django.utils import timezone
 class Question(models.Model):
 
   # question_text is a field.
+  # Assuming there "QuestionAdmin" is not registered
+  # "question_text" should appear vertically before
+  # "pub_date" because it is declared first.
   question_text = models.CharField(max_length=200)
 
   # pub_date (publication date) is the second field.
@@ -16,8 +19,14 @@ class Question(models.Model):
 
   def was_published_recently(self):
     print("pub_date:", self.pub_date)
-    print("timezone.now() - datetime.timedelta(days=1):", timezone.now() - datetime.timedelta(days=1))
-    return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+    # print("timezone.now() - datetime.timedelta(days=1):", timezone.now() - datetime.timedelta(days=1))
+    # return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+
+    now = timezone.now()
+
+    # Returns true if self.pub_date is less than the current time,
+    # but also greater than the exactly twenty-four hours ago.
+    return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
     # Evaluates to "False".
     # return 2 >= 3

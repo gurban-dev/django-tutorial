@@ -1,0 +1,15 @@
+<h style="font-size:2em;">404 Error Page</h>
+
+<div class="jumbotron">
+  <h1 class="display-4">Page Was Not Found</h1>
+  <p class="lead">Apologies. The page you have requested is missing or does not exist.</p>
+
+  <!-- Horizontal line -->
+  <hr class="my-4">
+
+  <a class="btn btn-success" href="{% url 'polls:errors' %}"
+    role="button">Return To The Errors Page</a>
+
+  <a class="btn btn-primary" href="{% url 'polls:index' %}"
+    role="button">Return To The Polls Page</a>
+</div>
