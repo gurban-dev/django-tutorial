@@ -12,6 +12,7 @@ venv/
 .env
 .env.*
 *.env
+.django-venv
 
 staticfiles/
 media/

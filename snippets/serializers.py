@@ -5,49 +5,55 @@ from django.contrib.auth.models import User
 # Purpose: To serialize and deserialize the snippet
 # instances into representations such as json.
 class SnippetSerializer(serializers.Serializer):
-  # Define the fields that get serialized/deserialized.
-  id = serializers.IntegerField(read_only=True)
+	# Define the fields that get serialized/deserialized.
+	id = serializers.IntegerField(read_only=True)
 
-  # Note that required, max_length, and
-  # default are called validation flags.
-  title = serializers.CharField(
-    required=False,
-    allow_blank=True,
-    max_length=100)
+	# Note that required, max_length, and
+	# default are called validation flags.
+	title = serializers.CharField(
+		required=False,
+		allow_blank=True,
+		max_length=100)
 
-  # Controls how the browsable API should be displayed.
-  code = serializers.CharField(style={'base_template': 'textarea.html'})
+	# Controls how the browsable API should be displayed.
+	code = serializers.CharField(style={'base_template': 'textarea.html'})
 
-  linenos = serializers.BooleanField(required=False)
+	linenos = serializers.BooleanField(required=False)
 
-  language = serializers.ChoiceField(
-    choices=LANGUAGE_CHOICES, default='python')
+	language = serializers.ChoiceField(
+		choices=LANGUAGE_CHOICES, default='python')
 
-  style = serializers.ChoiceField(
-    choices=STYLE_CHOICES, default='friendly')
+	style = serializers.ChoiceField(
+		choices=STYLE_CHOICES, default='friendly')
 
-  # Note that either create() or update() is
-  # invoked when serializer.save() is called.
+	# Note that either create() or update() is
+	# invoked when serializer.save() is called.
 
-  def create(self, validated_data):
-    """
-    Create and return a new `Snippet` instance, given
-    the validated data."""
+	def create(self, validated_data):
+		"""
+		Create and return a new `Snippet` instance, given
+		the validated data."""
 
-    # -Why do two asterisks precede "validated_data"?
-    return Snippet.objects.create(**validated_data)
+		# The two asterisks ** mean unpack this dictionary into
+		# keyword arguments.
+		return Snippet.objects.create(**validated_data)
 
-  def update(self, instance, validated_data):
-    """
-    Update and return an existing `Snippet` instance,
-    given the validated data."""
-    instance.title = validated_data.get('title', instance.title)
-    instance.code = validated_data.get('code', instance.code)
-    instance.linenos = validated_data.get('linenos', instance.linenos)
-    instance.language = validated_data.get('language', instance.language)
-    instance.style = validated_data.get('style', instance.style)
-    instance.save()
-    return instance
+	def update(self, instance, validated_data):
+		"""
+		Update and return an existing `Snippet` instance,
+		given the validated data."""
+		instance.title = validated_data.get('title', instance.title)
+		instance.code = validated_data.get('code', instance.code)
+		instance.linenos = validated_data.get('linenos', instance.linenos)
+		instance.language = validated_data.get('language', instance.language)
+		instance.style = validated_data.get('style', instance.style)
+		instance.save()
+
+		return instance
+
+	def validate_language(self, value):
+		# TODO: Validate the requested language.
+		pass
 
 # ModelSerializer classes are simply a shortcut
 # for creating serializer classes:
