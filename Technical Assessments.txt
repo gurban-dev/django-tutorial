@@ -1,0 +1,65 @@
+Task: Secure and expose the snippets API
+
+The codebase has a snippets app with a Snippet model linked to
+its owner, DRF serializers and views, and draft notes about
+ownership. The app's routes are duplicated, and storefront/urls.py
+does not include snippets.urls, so the API is not exposed through
+the project's main URL configuration.
+
+Assignment
+
+Make the snippets API reachable and enforce ownership rules:
+• Expose the snippets list and detail endpoints through the
+  project's main URL configuration.
+
+• Keep snippets readable by anyone.
+
+• Require authentication to create a snippet, and set its owner
+  from the authenticated request. Clients must not be able to
+  choose the owner in the request body.
+
+• Allow only a snippet's owner to update or delete it. Other users
+  must not be able to change or delete it.
+
+• Keep the existing behavior for language and style validation,
+  and avoid breaking the browsable API.
+
+Add tests for anonymous reads, authenticated creation, owner
+assignment, and attempts by another user to update or delete a
+snippet. Include a test that demonstrates the routes are
+reachable through the project.
+
+Where to investigate
+
+Start with:
+
+[storefront/urls.py]
+/home/gurban-dev/django-tutorial/storefront/urls.py
+
+[snippets/urls.py]
+/home/gurban-dev/django-tutorial/snippets/urls.py
+
+[snippets/views.py]
+/home/gurban-dev/django-tutorial/snippets/views.py
+
+[snippets/serializers.py]
+/home/gurban-dev/django-tutorial/snippets/serializers.py
+
+[snippets/models.py]
+/home/gurban-dev/django-tutorial/snippets/models.py
+
+The existing snippets/tests.py is only a placeholder. The project
+also has API-related notes in:
+
+[lesson-notes.md]
+/home/gurban-dev/django-tutorial/lesson-notes.md
+
+What makes this a substantial task:
+
+We must trace how project URLs connect to app URLs, determine which
+duplicate view and route definitions actually handle requests, and
+understand how DRF permissions, serializer fields, and perform_create()
+affect ownership.
+
+We need to preserve public reads while restricting write operations
+and prove the behavior with request-level tests.
