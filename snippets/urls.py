@@ -9,6 +9,9 @@ urlpatterns = [
 
 	# For class-based views.
 	path('snippets/', views.SnippetList.as_view()),
+
+	# .as_view() converts the class into a callable view function
+	# that Django's URL system can use.
 	path('snippets/<int:pk>/', views.SnippetDetail.as_view()),
 
 	path('users/', views.UserList.as_view()),

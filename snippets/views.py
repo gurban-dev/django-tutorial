@@ -68,9 +68,10 @@ def snippet_list(request, format=None):
 
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# One of the big wins of using class-based views is
-# that it allows us to easily compose reusable bits
-# of behaviour.
+# One of the advantages using class-based views is that they
+# allow us to easily compose reusable bits of behaviour because
+# they inherit reusable API behavior from the DRF (Django REST
+# framework).
 class SnippetList(APIView):
 	"""
 	List all snippets, or create a new snippet.
